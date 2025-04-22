@@ -1,4 +1,3 @@
-// src/components/calendar/CalendarView.jsx
 import React from 'react';
 
 const CalendarView = ({ month, today, selectedDay, onSelectDay }) => {
@@ -12,23 +11,28 @@ const CalendarView = ({ month, today, selectedDay, onSelectDay }) => {
 
   // Calculate days in week grid
   const getDaysGrid = () => {
-    // Get first day of month
-    const days = [...month.days];
-    if (days.length === 0) return [];
+    // Validate month and days
+    if (!month || !month.days || month.days.length === 0) {
+      return [];
+    }
     
+    const days = [...month.days];
+    
+    // Find first day of month
     const firstDay = days[0];
     const firstDayOfWeek = getDayIndex(firstDay.day);
     
-    // Add empty cells for days before the first day of month
+    // Initialize grid with empty cells for days before the first day
     const grid = Array(firstDayOfWeek).fill(null);
     
-    // Add the actual days
-    days.forEach(day => {
-      grid.push(day);
-    });
+    // Add actual days
+    grid.push(...days);
     
-    // Make sure grid has complete weeks (7 days each)
-    const remainingCells = (7 - (grid.length % 7)) % 7;
+    // Fill remaining cells to complete weeks
+    const totalCells = grid.length;
+    const completeWeeks = Math.ceil(totalCells / 7) * 7;
+    const remainingCells = completeWeeks - totalCells;
+    
     for (let i = 0; i < remainingCells; i++) {
       grid.push(null);
     }

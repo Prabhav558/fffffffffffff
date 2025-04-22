@@ -1,31 +1,41 @@
-// src/components/attendance/AttendanceChart.jsx
-import { useMemo } from 'react';
+import { useMemo, useRef, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
   BarElement,
+  PointElement,  // Add this import
+  LineElement,   // Add this import
   Title,
   Tooltip,
-  PointElement,  // Add this
-  LineElement, 
   Legend,
 } from 'chart.js';
 
-// Register ChartJS components
+// Register ALL necessary Chart.js components
 ChartJS.register(
   CategoryScale,
   LinearScale,
   BarElement,
+  PointElement,   // Register point element
+  LineElement,    // Register line element
   Title,
-  PointElement,  // Register point element
-  LineElement,  
   Tooltip,
   Legend
 );
 
 const AttendanceChart = ({ attendance }) => {
+  const chartRef = useRef(null);
+
+  // Cleanup on unmount to prevent canvas reuse errors
+  useEffect(() => {
+    return () => {
+      if (chartRef.current) {
+        chartRef.current.destroy();
+      }
+    };
+  }, []);
+
   // Prepare data for chart
   const chartData = useMemo(() => {
     if (!attendance || attendance.length === 0) {
@@ -126,7 +136,7 @@ const AttendanceChart = ({ attendance }) => {
 
   return (
     <div className="h-64">
-      <Bar data={chartData} options={options} />
+      <Bar ref={chartRef} data={chartData} options={options} />
     </div>
   );
 };
