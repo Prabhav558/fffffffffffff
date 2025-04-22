@@ -20,7 +20,16 @@ const CalendarView = ({ month, today, selectedDay, onSelectDay }) => {
     
     // Find first day of month
     const firstDay = days[0];
+    if (!firstDay || !firstDay.day) {
+      console.error('Invalid first day data:', firstDay);
+      return [];
+    }
+    
     const firstDayOfWeek = getDayIndex(firstDay.day);
+    if (isNaN(firstDayOfWeek) || firstDayOfWeek < 0) {
+      console.error('Invalid first day of week:', firstDayOfWeek);
+      return [];
+    }
     
     // Initialize grid with empty cells for days before the first day
     const grid = Array(firstDayOfWeek).fill(null);
@@ -39,7 +48,6 @@ const CalendarView = ({ month, today, selectedDay, onSelectDay }) => {
     
     return grid;
   };
-  
   // Convert day name to index (0 = Sunday, 1 = Monday, etc.)
   const getDayIndex = (dayName) => {
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
