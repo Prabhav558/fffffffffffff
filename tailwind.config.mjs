@@ -1,24 +1,10 @@
-import daisyui from 'daisyui'
+import { defineConfig } from 'tailwindcss';
+import plugin from 'tailwindcss/plugin';
 
-/** @type {import('tailwindcss').Config} */
-export default {
+export default defineConfig({
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-  ],
-  safelist: [
-    'btn',
-    'btn-primary',
-    'btn-secondary',
-    'btn-outline',
-    'btn-accent',
-    'btn-neutral',
-    'btn-info',
-    'btn-success',
-    'btn-warning',
-    'btn-error',
-    'font-sans'
-    // Add more individually if needed
   ],
   theme: {
     extend: {
@@ -47,21 +33,9 @@ export default {
           800: '#5925c6',
           900: '#4b239f',
         },
-        gray: {
-          50: '#f9fafb',
-          100: '#f4f5f7',
-          200: '#e5e7eb',
-          300: '#d2d6dc',
-          400: '#9fa6b2',
-          500: '#6b7280',
-          600: '#4b5563',
-          700: '#374151',
-          800: '#1f2937',
-          900: '#111827',
-        },
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', "Segoe UI", 'Roboto', "Helvetica Neue", 'Arial', "Noto Sans", 'sans-serif'],
       },
       boxShadow: {
         card: '0 0 20px rgba(0, 0, 0, 0.05)',
@@ -69,5 +43,23 @@ export default {
       },
     },
   },
-  plugins: [daisyui],
-}
+  plugins: [
+    // Custom plugin for additional utilities if needed
+    plugin(function({ addUtilities, addComponents }) {
+      addUtilities({
+        '.btn': {
+          '@apply px-4 py-2 rounded-md font-semibold transition-colors': {},
+        },
+        '.btn-primary': {
+          '@apply bg-primary-500 text-white hover:bg-primary-600': {},
+        },
+        '.input': {
+          '@apply w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500': {},
+        },
+        '.card': {
+          '@apply bg-white shadow-md rounded-lg p-4': {},
+        },
+      });
+    }),
+  ],
+});

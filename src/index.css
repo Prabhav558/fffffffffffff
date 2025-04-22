@@ -4,11 +4,12 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Base styles (raw CSS where needed) */
+/* Custom base styles */
 @layer base {
   html, body, #root {
     @apply h-full;
   }
+
 
   body {
     font-family: 'Inter', sans-serif;
