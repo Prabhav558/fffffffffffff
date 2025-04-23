@@ -25,13 +25,13 @@ const DashboardLayout = () => {
   }
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="h-full flex flex-col bg-gray-50">
       <Navbar user={user} onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
       
       <div className="flex flex-1 overflow-hidden">
         <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
         
-        <main className="flex-1 overflow-auto p-4 md:p-6 bg-gray-50">
+        <main className="flex-1 overflow-auto px-4 py-6 md:px-8 lg:px-10">
           <div className="max-w-7xl mx-auto">
             <Outlet />
           </div>

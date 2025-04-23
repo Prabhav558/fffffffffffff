@@ -1,7 +1,7 @@
 // src/App.jsx
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy} from 'react';
 import DashboardLayout from './layouts/DashboardLayout';
 import Loader from './components/common/Loader';
 
